@@ -1,6 +1,4 @@
-import OpenAI from "openai";
-
-const { animalJob, animalSpecies, animalIndex } = require('./index.html')
+const openai = require('../EDI/souce/openaiConfig.js')
 
 const image_gen = async()=>{
     const response = await openai.createImage({
