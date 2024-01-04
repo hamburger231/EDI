@@ -6,22 +6,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+SC:wght@900&display=swap" rel="stylesheet">
 </head>
-<script type="text/javascript">
-    import OpenAI from "openai";
-    const image_gen = async()=>{
-        const openai = new OpenAI({
-            apiKey:"sk-HN3rnLRhH0v7rWjm96o1T3BlbkFJhfCin2qvw4amz4VBTquZsetx"
-        });
-        const response = await openai.createImage({
-            model: "dall-e-3",
-            prompt: "a 3d render of a "+ animalSpecies + " dressed up and working as a " + animalJob + "who is " + animalAge + "years old",
-            n: 1,
-            size: "1024x1792",
-        });
-        image_url = response.data.data[0].url;
-        var obraz = document.getElementsByClassName("pudelko")[0]
-        obraz.src = image_url
-    }
+<script>
+    const { image_gen } = require('./imageGeneration')
 </script>
 <body>
 <div class="cname">
@@ -81,6 +67,7 @@
             animalIndex = animalIndex + 1;
             document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
             document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
+
         }else{
             animalIndex = 0;
             document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
@@ -98,6 +85,7 @@
     const animalSpecies = [];
     const animalJob = [];
     const animalAge = [];
+    export { animalJob, animalSpecies, animalIndex };
     let animalIndex = 0;
     async function getJson() {
         try {
