@@ -12,6 +12,7 @@ button {
     height: 93px;
     background-color: rgba(0, 0, 0, 0);
     border: none;
+    cursor: pointer;
 }
 .cname {
     display: flex;
