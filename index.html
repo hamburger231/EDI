@@ -1,71 +1,107 @@
 <head>
     <title>TerraLinked</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="costam.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+SC:wght@900&display=swap" rel="stylesheet">
 </head>
+<script type="text/javascript">
+    import OpenAI from "openai";
+    const image_gen = async()=>{
+        const openai = new OpenAI({
+            apiKey:"sk-HN3rnLRhH0v7rWjm96o1T3BlbkFJhfCin2qvw4amz4VBTquZsetx"
+        });
+        const response = await openai.createImage({
+            model: "dall-e-3",
+            prompt: "a 3d render of a "+ animalSpecies + " dressed up and working as a " + animalJob + "who is " + animalAge + "years old",
+            n: 1,
+            size: "1024x1792",
+        });
+        image_url = response.data.data[0].url;
+        var obraz = document.getElementsByClassName("pudelko")[0]
+        obraz.src = image_url
+    }
+</script>
 <body>
-    <div class="cname">
-        <h1><a href="index.html">Terralinked</a></h1>
-    </div>
-    <div class="Group1">
-        <div class="aboutus"><a href="aboutus.html">About us</a></div>
-        <h1 class="sep1">|</h1>
-        <div class="charts"><a href="charts.html">Charts</a></div>
-        <h1 class="sep2">|</h1>
-        <div class="rawdata"><a href="data.html">Raw data</a></div>
-    </div>
-    <div class="Group2">
-        <img class="pudelko" src="" alt="picture of the animal"> <!-- MATI TUTAJ WRZUCAJ OBRAZEK GENEROWANY PRZEZ AI DO SRC W TEJ LINIJCE-->
-            <h2 id="animalName"></h2>
-            <h2 id="animalAge"></h2>
-            <h2 id="animalJob"></h2>
-            <h4 id="animalDistance"></h4>
-    </div>
-    <div class="circles">
-        <button>
-            <svg width="93" height="91" viewBox="0 0 93 91" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="46.5" cy="45.5" rx="46.5" ry="45.5" fill="#C24A4A"/>
-                <g clip-path="url(#clip0_617_3)">
+<div class="cname">
+    <h1><a href="index.html">Terralinked</a></h1>
+</div>
+<div class="Group1">
+    <div class="aboutus"><a href="aboutus.html">About us</a></div>
+    <h1 class="sep1">|</h1>
+    <div class="charts"><a href="charts.html">Charts</a></div>
+    <h1 class="sep2">|</h1>
+    <div class="rawdata"><a href="data.html">Raw data</a></div>
+</div>
+<div class="Group2">
+    <img class="pudelko" src="" alt="picture of the animal"> <!-- MATI TUTAJ WRZUCAJ OBRAZEK GENEROWANY PRZEZ AI DO SRC W TEJ LINIJCE-->
+    <h2 id="animalInfo"></h2>
+    <h4 id="animalDistance"></h4>
+</div>
+<div class="circles">
+    <button onclick="changeAnimal()">
+        <svg width="93" height="91" viewBox="0 0 93 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="46.5" cy="45.5" rx="46.5" ry="45.5" fill="#C24A4A"/>
+            <g clip-path="url(#clip0_617_3)">
                 <path d="M62.5648 25L47.0002 41.0508L31.4357 25L29.0522 27.4418L44.6249 43.5003L29.0522 59.5594L31.4357 62L47.0002 45.9498L62.5648 62L64.9482 59.5594L49.3756 43.5003L64.9482 27.4418L62.5648 25Z" fill="black"/>
-                </g>
-                <defs>
+            </g>
+            <defs>
                 <clipPath id="clip0_617_3">
-                <rect width="36" height="37" fill="white" transform="translate(29 25)"/>
+                    <rect width="36" height="37" fill="white" transform="translate(29 25)"/>
                 </clipPath>
-                </defs>
-            </svg> 
-        </button>
-        <button>
-            <svg width="110" height="95" viewBox="0 0 110 95" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <ellipse cx="54.5" cy="47.5" rx="46.5" ry="45.5" fill="#B3C547"/> <!-- MATI TUTAJ DODAJ ANIMACJE W TYM FILLU W TEJ LINIJCE-->
-                <rect width="110" height="95" fill="url(#pattern0)"/>
-                <defs>
-                <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                <use xlink:href="#image0_617_4" transform="matrix(0.00361354 0 0 0.0041841 -0.0781666 0)"/>
-                </pattern>
-                <image id="image0_617_4" width="320" height="239" xlink:href="data:image/png;base64,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"/>
-                </defs>
+            </defs>
         </svg>
     </button>
+    <button onclick="changeAnimal()">
+        <svg width="110" height="95" viewBox="0 0 110 95" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <ellipse cx="54.5" cy="47.5" rx="46.5" ry="45.5" fill="#B3C547"/> <!-- MATI TUTAJ DODAJ ANIMACJE W TYM FILLU W TEJ LINIJCE-->
+            <rect width="110" height="95" fill="url(#pattern0)"/>
+            <defs>
+                <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_617_4" transform="matrix(0.00361354 0 0 0.0041841 -0.0781666 0)"/>
+                </pattern>
+                <image id="image0_617_4" width="320" height="239" xlink:href="data:image/png;base64,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"/>
+            </defs>
+        </svg>
+    </button>
+</div>
+<h1 class="lmi">Last match's info</h1>
+<div class="Group3">
+    <div class="pudelko2">
+        <table id="TABELSON" onclick="apendowanie()">
+
+        </table><!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
     </div>
-    <h1 class="lmi">Last match's info</h1>
-    <div class="Group3">
-        <div class="pudelko2">
-            <table id="mockaroo-table"></table><!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
-        </div>
-    </div>
+</div>
 </body>
 <script>
-    const animalName = [];
-    const animalAge = [];
-    const animalJob = [];
+    function changeAnimal() {
+        if(animalIndex < 99) {
+            animalIndex = animalIndex + 1;
+            document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
+            document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
+        }else{
+            animalIndex = 0;
+            document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
+            document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
+        }
+    }
+
+    function apendowanie() {
+        let table = document.getElementById("TABELSON");
+        table.append()
+    }
+    const animalInfo = [];
     const animalDistance = [];
+    const animalSpecies = [];
+    const animalJob = [];
+    const animalAge = [];
+    let animalIndex = 0;
     async function getJson() {
         try {
             const response = await fetch(
-                'https://my.api.mockaroo.com/terra_linked.json?key=ce5f1ce0',
+                'https://my.api.mockaroo.com/terra_linked.json?key=3a28a0d0',
                 {
                     method: 'GET',
                 },
@@ -78,20 +114,16 @@
     }
     getJson().then(data => {
         data.forEach(user => {
-            animalName.push(user.name);
-            animalAge.push(user.age);
-            animalJob.push(user.job);
+            animalInfo.push(user.name + ", " + user.age + "<br>" + user.job);
             animalDistance.push(user.miles_away);
+            animalSpecies.push(user.species);
+            animalJob.push(user.job);
+            animalAge.push(user.age);
+
         });
 
-        let defaultName = document.getElementById("animalName");
-        defaultName.innerHTML = animalName[0];
-
-        let defaultAge = document.getElementById("animalAge");
-        defaultAge.innerHTML = animalAge[0];
-
-        let defaultJob = document.getElementById("animalJob");
-        defaultJob.innerHTML = animalJob[0];
+        let defaultName = document.getElementById("animalInfo");
+        defaultName.innerHTML = animalInfo[0];
 
         let defaultDistance = document.getElementById("animalDistance");
         defaultDistance.innerHTML = animalDistance[0];
@@ -111,10 +143,10 @@
         <th>Age</th>
         <th>Color</th>
         <th>Weight</th>
-        <th>Age</th>
-        <th>Is a Mammal</th>
+        <th>Species</th>
+        <th>Is a mammal</th>
         <th>Habitat</th>
-        <th>Average Lifespan</th>
+        <th>Average lifespan</th>
         <th>Job</th>
         <th>Distance</th>
       </tr>
@@ -149,12 +181,4 @@
         mockarooTableData.innerHTML = table;
     });
 
-
-    /*const response = await openai.createImage({
-    model: "dall-e-3",
-    prompt: "a white siamese cat",
-    n: 1,
-    size: "1024x1024",
-    });
-    image_url = response.data.data[0].url;*/
 </script>
