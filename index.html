@@ -1,8 +1,9 @@
 <head>
+    <title>TerraLinked</title>
     <link rel="stylesheet" href="costam.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+SC:wght@900&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+SC:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="cname">
@@ -16,11 +17,11 @@
         <div class="rawdata"><a href="data.html">Raw data</a></div>
     </div>
     <div class="Group2">
-        <img class="pudelko" src=""> <!-- MATI TUTAJ WRZUCAJ OBRAZEK GENEROWANY PRZEZ AI DO SRC W TEJ LINIJCE-->
-        <h2>Hello Hamburger, 48
-        Plumber</h1>
-        <h4>13 miles away</h3> 
-    </img>
+        <img class="pudelko" src="" alt="picture of the animal"> <!-- MATI TUTAJ WRZUCAJ OBRAZEK GENEROWANY PRZEZ AI DO SRC W TEJ LINIJCE-->
+            <h2 id="animalName"></h2>
+            <h2 id="animalAge"></h2>
+            <h2 id="animalJob"></h2>
+            <h4 id="animalDistance"></h4>
     </div>
     <div class="circles">
         <button>
@@ -52,16 +53,108 @@
     <h1 class="lmi">Last match's info</h1>
     <div class="Group3">
         <div class="pudelko2">
-            <script></script> <!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
+            <table id="mockaroo-table"></table><!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
         </div>
     </div>
 </body>
 <script>
-    const response = await openai.createImage({
+    const animalName = [];
+    const animalAge = [];
+    const animalJob = [];
+    const animalDistance = [];
+    async function getJson() {
+        try {
+            const response = await fetch(
+                'https://my.api.mockaroo.com/terra_linked.json?key=ce5f1ce0',
+                {
+                    method: 'GET',
+                },
+            );
+
+            return await response.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getJson().then(data => {
+        data.forEach(user => {
+            animalName.push(user.name);
+            animalAge.push(user.age);
+            animalJob.push(user.job);
+            animalDistance.push(user.miles_away);
+        });
+
+        let defaultName = document.getElementById("animalName");
+        defaultName.innerHTML = animalName[0];
+
+        let defaultAge = document.getElementById("animalAge");
+        defaultAge.innerHTML = animalAge[0];
+
+        let defaultJob = document.getElementById("animalJob");
+        defaultJob.innerHTML = animalJob[0];
+
+        let defaultDistance = document.getElementById("animalDistance");
+        defaultDistance.innerHTML = animalDistance[0];
+    });
+
+
+
+    getJson().then(data => {
+        console.log(data);
+
+        let table = '<table style="border-collapse: collapse;">';
+
+        table += `
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Color</th>
+        <th>Weight</th>
+        <th>Age</th>
+        <th>Is a Mammal</th>
+        <th>Habitat</th>
+        <th>Average Lifespan</th>
+        <th>Job</th>
+        <th>Distance</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  `;
+
+        data.forEach(user => {
+            table += `
+      <tr>
+        <td>${user.name}</td>
+        <td>${user.age}</td>
+        <td>${user.color}</td>
+        <td>${user.weight}</td>
+        <td>${user.species}</td>
+        <td>${user.is_mammal}</td>
+        <td>${user.habitat}</td>
+        <td>${user.average_lifespan}</td>
+        <td>${user.job}</td>
+        <td>${user.miles_away}</td>
+      </tr>
+    `;
+        });
+
+        table += `
+    </tbody>
+  </table>
+  `;
+
+        const mockarooTableData = document.getElementById('mockaroo-table');
+        mockarooTableData.innerHTML = table;
+    });
+
+
+    /*const response = await openai.createImage({
     model: "dall-e-3",
     prompt: "a white siamese cat",
     n: 1,
     size: "1024x1024",
     });
-    image_url = response.data.data[0].url;
+    image_url = response.data.data[0].url;*/
 </script>

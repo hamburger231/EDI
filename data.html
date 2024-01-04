@@ -14,5 +14,81 @@
         <div class="charts"><a href="charts.html">Charts</a></div>
         <h1 class="sep2">|</h1>
         <div class="rawdata"><a href="data.html">Raw data</a></div>
-      </div>
-    <div>
+    </div>
+    <table id="mockaroo-table"></table>
+</body>
+<script>
+    async function getJson() {
+        try {
+            const response = await fetch(
+                'https://my.api.mockaroo.com/terra_linked.json?key=ce5f1ce0',
+                {
+                    method: 'GET',
+                },
+            );
+
+            return await response.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    getJson().then(data => {
+        console.log(data);
+
+        let table = '<table style="border-collapse: collapse;">';
+
+        table += `
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Color</th>
+        <th>Weight</th>
+        <th>Age</th>
+        <th>Is a Mammal</th>
+        <th>Habitat</th>
+        <th>Average Lifespan</th>
+        <th>Job</th>
+        <th>Distance</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  `;
+
+        data.forEach(user => {
+            table += `
+      <tr>
+        <td>${user.name}</td>
+        <td>${user.age}</td>
+        <td>${user.color}</td>
+        <td>${user.weight}</td>
+        <td>${user.species}</td>
+        <td>${user.is_mammal}</td>
+        <td>${user.habitat}</td>
+        <td>${user.average_lifespan}</td>
+        <td>${user.job}</td>
+        <td>${user.miles_away}</td>
+      </tr>
+    `;
+        });
+
+        table += `
+    </tbody>
+  </table>
+  `;
+
+        const mockarooData = document.getElementById('mockaroo-table');
+        mockarooData.innerHTML = table;
+    });
+
+
+    /*const response = await openai.createImage({
+    model: "dall-e-3",
+    prompt: "a white siamese cat",
+    n: 1,
+    size: "1024x1024",
+    });
+    image_url = response.data.data[0].url;*/
+</script>
