@@ -9,48 +9,14 @@
 </head>
 <script>
     
-    const OPENAI_API_KEY = "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";
-    const image_gen = async()=>{
-        const response = await fetch("https://api.openai.com/v1/images/generations",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${OPENAI_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "dall-e-2",
-                prompt: "a 3d render of a "+ animalSpecies[animalIndex] + " dressed up and working as a " + animalJob[animalIndex],
-                n: 1,
-                size: "512x512",
-            })
-        });
-        const { data } = await response.json();
-        const imageUrl = data[0].url;
-        let obrazek = document.getElementsByClassName("pudelko")[0]
-        obrazek.src = imageUrl;
-}
 function changeAnimal() {
     let obrazek = document.getElementsByClassName("pudelko")[0]
         obrazek.src = "dzif.gif";
+    console.log(animalIndex)
     if(animalIndex < 99) {
         animalIndex = animalIndex + 1;
         document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
         document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
-        let Tablica = document.getElementById("TABELSON").innerHTML
-        Tablica += `
-        <tr>
-            <td>${animalName}</td>
-            <td>${animalAge}</td>
-            <td>${animalColor}</td>
-            <td>${animalWeight}</td>
-            <td>${animalSpecies}</td>
-            <td>${animalIsMammal}</td>
-            <td>${animalHabitat}</td>
-            <td>${animalAverageLifespan}</td>
-            <td>${animalJob}</td>
-            <td>${animalDistance}</td>
-        </tr>
-        `;
         
         image_gen()
     }else{
@@ -60,7 +26,35 @@ function changeAnimal() {
         image_gen()
     }
 }
-
+function changeAnimalYES() {
+    let obrazek = document.getElementsByClassName("pudelko")[0]
+        obrazek.src = "dzif.gif";
+    if(animalIndex < 99) {
+        animalIndex = animalIndex + 1;
+        document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
+        document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
+        let Tablica = document.getElementById("TABELSON")
+        let newRow = Tablica.insertRow();
+            newRow.insertCell().innerHTML = animalName[animalIndex-1];
+            newRow.insertCell().innerHTML = animalAge[animalIndex-1];
+            newRow.insertCell().innerHTML = animalColor[animalIndex-1];
+            newRow.insertCell().innerHTML = animalWeight[animalIndex-1];
+            newRow.insertCell().innerHTML = animalSpecies[animalIndex-1];
+            newRow.insertCell().innerHTML = animalIsMammal[animalIndex-1];
+            newRow.insertCell().innerHTML = animalHabitat[animalIndex-1];
+            newRow.insertCell().innerHTML = animalAverageLifespan[animalIndex-1];
+            newRow.insertCell().innerHTML = animalJob[animalIndex-1];
+            newRow.insertCell().innerHTML = animalDistance[animalIndex-1];
+        var tableContainer = document.getElementById('tableContainer');
+            tableContainer.scrollTop = tableContainer.scrollHeight;
+        image_gen()
+    }else{
+        animalIndex = 0;
+        document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
+        document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
+        image_gen()
+    }
+}
 
 const animalInfo = [];
 const animalDistance = [];
@@ -79,7 +73,7 @@ let animalIndex = 0;
 async function getJson() {
     try {
         const response = await fetch(
-            'https://my.api.mockaroo.com/terra_linked.json?key=0770ad20',
+            'https://my.api.mockaroo.com/terra_linked.json?key=914cc8d0',
             {
                 method: 'GET',
             },
@@ -100,7 +94,7 @@ getJson().then(data => {
         animalName.push(user.name);
         animalColor.push(user.color);
         animalHabitat.push(user.habitat);
-        animalAverageLifespan.push(user.averageLifespan);
+        animalAverageLifespan.push(user.average_lifespan);
         animalWeight.push(user.weight);
         animalIsMammal.push(user.is_mammal);
     });
@@ -165,7 +159,7 @@ getJson().then(data => {
     mockarooTableData.innerHTML = table;
 });
 </script>
-<body>
+<body id="BADI">
 <div class="cname">
     <h1><a href="index.html">Terralinked</a></h1>
 </div>
@@ -195,7 +189,7 @@ getJson().then(data => {
             </defs>
         </svg>
     </button>
-    <button onclick="changeAnimal()">
+    <button onclick="changeAnimalYES()">
         <svg width="110" height="95" viewBox="0 0 110 95" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <ellipse cx="54.5" cy="47.5" rx="46.5" ry="45.5" fill="#B3C547"/> <!-- MATI TUTAJ DODAJ ANIMACJE W TYM FILLU W TEJ LINIJCE-->
             <rect width="110" height="95" fill="url(#pattern0)"/>
@@ -210,24 +204,23 @@ getJson().then(data => {
 </div>
 <h1 class="lmi">Your likes</h1>
 <div class="Group3">
-    <div class="pudelko2">
-        <table id="TABELSON">
+    <table id="TABELSON">
+        <tbody>
             <thead class="tbl-header">
                 <tr>
-                  <th>Name</th>
-                  <th>Age</th>
-                  <th>Color</th>
-                  <th>Weight</th>
-                  <th>Species</th>
-                  <th>Is a mammal</th>
-                  <th>Habitat</th>
-                  <th>Average lifespan</th>
-                  <th>Job</th>
-                  <th>Distance</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Color</th>
+                    <th>Weight</th>
+                    <th>Species</th>
+                    <th>Is a mammal</th>
+                    <th>Habitat</th>
+                    <th>Average lifespan</th>
+                    <th>Job</th>
+                    <th>Distance</th>
                 </tr>
-                </thead>
-              <tbody>
-        </table><!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
-    </div>
+            </thead>
+        <tbody>
+    </table><!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
 </div>
 </body>
