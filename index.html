@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+SC:wght@900&display=swap" rel="stylesheet">
 </head>
 <script>
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
     const image_gen = async()=>{
         const response = await fetch("https://api.openai.com/v1/images/generations",{
             method: "POST",
@@ -189,7 +189,7 @@ getJson().then(data => {
     <div class="rawdata"><a href="data.html">Raw data</a></div>
 </div>
 <div class="Group2">
-    <img class="pudelko" src="dzif.gif" alt="picture of the animal"> <!-- MATI TUTAJ WRZUCAJ OBRAZEK GENEROWANY PRZEZ AI DO SRC W TEJ LINIJCE-->
+    <img class="pudelko" src="dzif.gif" alt="picture of the animal">
     <h2 id="animalInfo"></h2>
     <h4 id="animalDistance"></h4>
 </div>
@@ -209,7 +209,7 @@ getJson().then(data => {
     </button>
     <button onclick="changeAnimalYES()">
         <svg width="110" height="95" viewBox="0 0 110 95" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <ellipse cx="54.5" cy="47.5" rx="46.5" ry="45.5" fill="#B3C547"/> <!-- MATI TUTAJ DODAJ ANIMACJE W TYM FILLU W TEJ LINIJCE-->
+            <ellipse cx="54.5" cy="47.5" rx="46.5" ry="45.5" fill="#B3C547"/> 
             <rect width="110" height="95" fill="url(#pattern0)"/>
             <defs>
                 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -239,6 +239,6 @@ getJson().then(data => {
                 </tr>
             </thead>
         <tbody>
-    </table><!-- MATI TUTAJ ZRÓB JAKĄŚ TABELKĘ HTML GDZIE Z TEGO MOCKAROO API BĘDZIE BRAĆ NUMER TELEFONU JEŚLI SIĘ KOGOŚ POLAJKUJE -->
+    </table>
 </div>
 </body>

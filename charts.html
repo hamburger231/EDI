@@ -23,7 +23,7 @@
     <div>
         <div class="ChartsContainer">
             <div class="PieChart">
-                <canvas id="myChart" width="30%" height="30%"></canvas>
+                <canvas id="myChart"></canvas>
             </div>
             <div class="BarChart">
               <canvas id="mySecondChart"></canvas>
@@ -111,8 +111,8 @@
                   datasets: [{
                     label: 'Average distance(in miles) per habitat',
                     data: [habitat1,habitat2,habitat3,habitat4,habitat5],
-                    backgroundColor: ['darkblue',
-                    'lightgreen','yellow','darkgreen','grey'],
+                    backgroundColor: ['#92C7CF',
+                    '#99B080','#B19470','#495E57','#45474B'],
                     borderColor: 'none',     
                     borderWidth: 1                            
                   }]
