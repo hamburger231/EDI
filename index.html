@@ -27,8 +27,16 @@ const image_gen = async()=>{
     const imageUrl = data[0].url;
     let obrazek = document.getElementsByClassName("pudelko")[0]
     obrazek.src = imageUrl;
+    let bio = document.getElementById("animalInfo")
+        bio.className = "h2"
+    let dist = document.getElementById("animalDistance")
+        dist.className = "h4"
 }
 function changeAnimal() {
+    let bio = document.getElementById("animalInfo")
+        bio.className = "h2loading"
+    let dist = document.getElementById("animalDistance")
+        dist.className = "h4loading"
     let obrazek = document.getElementsByClassName("pudelko")[0]
         obrazek.src = "dzif.gif";
     console.log(animalIndex)
@@ -36,7 +44,6 @@ function changeAnimal() {
         animalIndex = animalIndex + 1;
         document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
         document.getElementById("animalDistance").innerHTML = animalDistance[animalIndex]
-        
         image_gen()
     }else{
         animalIndex = 0;
@@ -48,6 +55,10 @@ function changeAnimal() {
 function changeAnimalYES() {
     let obrazek = document.getElementsByClassName("pudelko")[0]
         obrazek.src = "dzif.gif";
+    let bio = document.getElementById("animalInfo")
+        bio.className = "h2loading"
+    let dist = document.getElementById("animalDistance")
+        dist.className = "h4loading"
     if(animalIndex < 99) {
         animalIndex = animalIndex + 1;
         document.getElementById("animalInfo").innerHTML = animalInfo[animalIndex]
@@ -190,8 +201,8 @@ getJson().then(data => {
 </div>
 <div class="Group2">
     <img class="pudelko" src="dzif.gif" alt="picture of the animal">
-    <h2 id="animalInfo"></h2>
-    <h4 id="animalDistance"></h4>
+    <h2 id="animalInfo" class="h2loading"></h2>
+    <h4 id="animalDistance" class="h4loading"></h4>
 </div>
 <div class="circles">
     <button onclick="changeAnimal()">
